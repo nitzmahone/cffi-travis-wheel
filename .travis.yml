@@ -34,7 +34,7 @@ jobs:
 before_install:
     - sudo apt-get install mercurial
     - hg clone https://foss.heptapod.net/pypy/cffi
-    - cd cffi; hg up -r `hg tags --template '{tag}\n' | grep '^v' | head -n1`
+    - (cd cffi; hg up -r `hg tags --template '{tag}\n' | grep '^v' | head -n1`)
     - TEST_DEPENDS="pytest pycparser"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
