@@ -15,3 +15,4 @@ To upload the wheel on pypi, your pypi credential must be configured in travis o
   i)	Open *`.travis.yml`* file  
   ii)	Modify twine upload command as *"twine upload `-u <pypi username> -p <pypi password>` ${TRAVIS_BUILD_DIR}/wheelhouse/*"*  
   iii) Trigger the build if required.
+
