@@ -1,7 +1,9 @@
 env:
     global:
         - REPO_DIR=cffi
-        - PLAT=x86_64
+        - PLAT=aarch64
+        - MB_ML_VER=2014
+        - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
 
 language: generic
 services: docker
@@ -15,21 +17,15 @@ jobs:
       - arch: arm64
         env:
           - MB_PYTHON_VERSION=3.6
-          - PLAT=aarch64
-          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
-          - DOCKER_IMAGE=quay.io/pypa/manylinux2014_${PLAT}
       - arch: arm64
         env:
           - MB_PYTHON_VERSION=3.7
-          - PLAT=aarch64
-          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
-          - DOCKER_IMAGE=quay.io/pypa/manylinux2014_${PLAT}
       - arch: arm64
         env:
           - MB_PYTHON_VERSION=3.8
-          - PLAT=aarch64
-          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
-          - DOCKER_IMAGE=quay.io/pypa/manylinux2014_${PLAT}
+      - arch: arm64
+        env:
+          - MB_PYTHON_VERSION=3.9
 
 before_install:
     - sudo apt-get install mercurial
@@ -47,4 +43,4 @@ script:
     - install_run $PLAT
 after_success:
     - pip install twine
-    - twine upload  ${TRAVIS_BUILD_DIR}/wheelhouse/*
+    - twine upload ${TRAVIS_BUILD_DIR}/wheelhouse/*
