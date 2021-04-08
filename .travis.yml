@@ -1,13 +1,12 @@
 env:
     global:
         - REPO_DIR=cffi
-        - PLAT=aarch64
         - MB_ML_VER=2014
-        - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
 
 language: generic
 services: docker
 os: linux
+dist: focal
 
 jobs:
   exclude:
@@ -16,15 +15,43 @@ jobs:
   include:
       - arch: arm64
         env:
+          - PLAT=aarch64
+          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
           - MB_PYTHON_VERSION=3.6
       - arch: arm64
         env:
+          - PLAT=aarch64
+          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
           - MB_PYTHON_VERSION=3.7
       - arch: arm64
         env:
+          - PLAT=aarch64
+          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
           - MB_PYTHON_VERSION=3.8
       - arch: arm64
         env:
+          - PLAT=aarch64
+          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
+          - MB_PYTHON_VERSION=3.9
+      - arch: ppc64le
+        env:
+          - PLAT=ppc64le
+          - DOCKER_TEST_IMAGE=multibuild/xenial_ppc64le
+          - MB_PYTHON_VERSION=3.6
+      - arch: ppc64le
+        env:
+          - PLAT=ppc64le
+          - DOCKER_TEST_IMAGE=multibuild/xenial_ppc64le
+          - MB_PYTHON_VERSION=3.7
+      - arch: ppc64le
+        env:
+          - PLAT=ppc64le
+          - DOCKER_TEST_IMAGE=multibuild/xenial_ppc64le
+          - MB_PYTHON_VERSION=3.8
+      - arch: ppc64le
+        env:
+          - PLAT=ppc64le
+          - DOCKER_TEST_IMAGE=multibuild/xenial_ppc64le
           - MB_PYTHON_VERSION=3.9
 
 before_install:
