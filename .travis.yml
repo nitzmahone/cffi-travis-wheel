@@ -53,6 +53,26 @@ jobs:
           - PLAT=ppc64le
           - DOCKER_TEST_IMAGE=multibuild/xenial_ppc64le
           - MB_PYTHON_VERSION=3.9
+      - arch: s390x
+        env:
+          - PLAT=s390x
+          - DOCKER_TEST_IMAGE=multibuild/xenial_s390x
+          - MB_PYTHON_VERSION=3.6
+      - arch: s390x
+        env:
+          - PLAT=s390x
+          - DOCKER_TEST_IMAGE=multibuild/xenial_s390x
+          - MB_PYTHON_VERSION=3.7
+      - arch: s390x
+        env:
+          - PLAT=s390x
+          - DOCKER_TEST_IMAGE=multibuild/xenial_s390x
+          - MB_PYTHON_VERSION=3.8
+      - arch: s390x
+        env:
+          - PLAT=s390x
+          - DOCKER_TEST_IMAGE=multibuild/xenial_s390x
+          - MB_PYTHON_VERSION=3.9
 
 before_install:
     - sudo apt-get install mercurial
