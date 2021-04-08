@@ -41,6 +41,8 @@ install:
 
 script:
     - install_run $PLAT
+
 after_success:
     - pip install twine
-    - twine upload ${TRAVIS_BUILD_DIR}/wheelhouse/*
+    - twine check ${TRAVIS_BUILD_DIR}/wheelhouse/*
+    - if [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then twine upload ${TRAVIS_BUILD_DIR}/wheelhouse/*; fi
