@@ -1,13 +1,12 @@
 env:
     global:
         - REPO_DIR=cffi
-        - PLAT=aarch64
         - MB_ML_VER=2014
-        - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
 
 language: generic
 services: docker
 os: linux
+dist: focal
 
 jobs:
   exclude:
@@ -16,15 +15,63 @@ jobs:
   include:
       - arch: arm64
         env:
+          - PLAT=aarch64
+          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
           - MB_PYTHON_VERSION=3.6
       - arch: arm64
         env:
+          - PLAT=aarch64
+          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
           - MB_PYTHON_VERSION=3.7
       - arch: arm64
         env:
+          - PLAT=aarch64
+          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
           - MB_PYTHON_VERSION=3.8
       - arch: arm64
         env:
+          - PLAT=aarch64
+          - DOCKER_TEST_IMAGE=multibuild/xenial_arm64v8
+          - MB_PYTHON_VERSION=3.9
+      - arch: ppc64le
+        env:
+          - PLAT=ppc64le
+          - DOCKER_TEST_IMAGE=multibuild/xenial_ppc64le
+          - MB_PYTHON_VERSION=3.6
+      - arch: ppc64le
+        env:
+          - PLAT=ppc64le
+          - DOCKER_TEST_IMAGE=multibuild/xenial_ppc64le
+          - MB_PYTHON_VERSION=3.7
+      - arch: ppc64le
+        env:
+          - PLAT=ppc64le
+          - DOCKER_TEST_IMAGE=multibuild/xenial_ppc64le
+          - MB_PYTHON_VERSION=3.8
+      - arch: ppc64le
+        env:
+          - PLAT=ppc64le
+          - DOCKER_TEST_IMAGE=multibuild/xenial_ppc64le
+          - MB_PYTHON_VERSION=3.9
+      - arch: s390x
+        env:
+          - PLAT=s390x
+          - DOCKER_TEST_IMAGE=multibuild/xenial_s390x
+          - MB_PYTHON_VERSION=3.6
+      - arch: s390x
+        env:
+          - PLAT=s390x
+          - DOCKER_TEST_IMAGE=multibuild/xenial_s390x
+          - MB_PYTHON_VERSION=3.7
+      - arch: s390x
+        env:
+          - PLAT=s390x
+          - DOCKER_TEST_IMAGE=multibuild/xenial_s390x
+          - MB_PYTHON_VERSION=3.8
+      - arch: s390x
+        env:
+          - PLAT=s390x
+          - DOCKER_TEST_IMAGE=multibuild/xenial_s390x
           - MB_PYTHON_VERSION=3.9
 
 before_install:
@@ -41,6 +88,8 @@ install:
 
 script:
     - install_run $PLAT
+
 after_success:
-    - pip install twine
-    - twine upload ${TRAVIS_BUILD_DIR}/wheelhouse/*
+    - pip install twine "cryptography~=3.3.2"
+    - twine check ${TRAVIS_BUILD_DIR}/wheelhouse/*
+    - if [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then twine upload ${TRAVIS_BUILD_DIR}/wheelhouse/*; fi
