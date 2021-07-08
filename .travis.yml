@@ -2,6 +2,7 @@ env:
     global:
         - REPO_DIR=cffi
         - MB_ML_VER=2014
+        - CFFI_HG_TAG=default
 
 language: generic
 services: docker
@@ -77,7 +78,8 @@ jobs:
 before_install:
     - sudo apt-get install mercurial
     - hg clone https://foss.heptapod.net/pypy/cffi
-    - (cd cffi; hg up -r `hg tags --template '{tag}\n' | grep '^v' | head -n1`)
+    - echo "checking out ref ${CFFI_HG_TAG:=`hg tags --template '{tag}\n' | grep '^v' | head -n1`}"
+    - (cd cffi; hg up -r $CFFI_HG_TAG)
     - TEST_DEPENDS="pytest pycparser"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
@@ -89,10 +91,12 @@ install:
 script:
     - install_run $PLAT
 
-addons:
-  artifacts:
-    paths:
-    - ./dist/*.whl
+after_success:
+  - echo 'outputs:'
+  - ls -l ./wheelhouse/*.whl
+  - sha1sum ./wheelhouse/*.whl
+  - artifacts upload --target-paths /${TRAVIS_REPO_SLUG}/${TRAVIS_BUILD_NUMBER} ./wheelhouse/
+  - echo 'done'
 
 #after_success:
 #    - pip install twine "cryptography~=3.3.2"
