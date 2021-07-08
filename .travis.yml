@@ -89,7 +89,12 @@ install:
 script:
     - install_run $PLAT
 
-after_success:
-    - pip install twine "cryptography~=3.3.2"
-    - twine check ${TRAVIS_BUILD_DIR}/wheelhouse/*
-    - if [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then twine upload ${TRAVIS_BUILD_DIR}/wheelhouse/*; fi
+addons:
+  artifacts:
+    paths:
+    - ./dist/*.whl
+
+#after_success:
+#    - pip install twine "cryptography~=3.3.2"
+#    - twine check ${TRAVIS_BUILD_DIR}/wheelhouse/*
+#    - if [ "${TRAVIS_PULL_REQUEST}" == "false" ]; then twine upload ${TRAVIS_BUILD_DIR}/wheelhouse/*; fi
